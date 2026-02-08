@@ -1,0 +1,286 @@
+# SHADOW Bug Bounty Automation Framework - Default Configuration
+# Copy this file to config.yaml and customize for your target
+
+# Global Settings
+global:
+  # Proxy for intercepting traffic (Burp/Caido)
+  proxy: null  # "http://127.0.0.1:8080"
+
+  # Request timeout in seconds
+  timeout: 30
+
+  # Rate limiting (requests per second)
+  rate_limit: 10
+
+  # Maximum concurrent requests
+  max_concurrent: 20
+
+  # Retry settings
+  max_retries: 3
+  retry_backoff: 2  # Exponential backoff multiplier
+
+  # SSL verification (disable for self-signed certs)
+  verify_ssl: false
+
+  # Follow redirects
+  follow_redirects: true
+  max_redirects: 10
+
+  # User agent rotation
+  rotate_user_agent: true
+
+  # Default user agent
+  user_agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+
+  # Output directory
+  output_dir: "results"
+
+  # Verbose logging
+  verbose: false
+
+# Reconnaissance Settings
+recon:
+  # Subdomain enumeration tools
+  subdomain_tools:
+    - subfinder
+    - amass
+    - assetfinder
+
+  # Port scanning
+  ports: "top-1000"  # or "1-65535" for full scan
+  port_scan_rate: 1000
+
+  # Technology fingerprinting
+  tech_tools:
+    - httpx
+    - whatweb
+
+  # DNS enumeration
+  dns_wordlist: "wordlists/subdomains.txt"
+  dns_resolvers:
+    - "8.8.8.8"
+    - "1.1.1.1"
+
+  # Wayback machine
+  wayback_limit: 1000
+
+# Discovery Settings
+discovery:
+  # Directory bruteforce
+  dir_wordlist: "wordlists/directories.txt"
+  dir_extensions:
+    - php
+    - asp
+    - aspx
+    - jsp
+    - html
+    - js
+    - json
+    - xml
+  dir_threads: 50
+  dir_recursion_depth: 2
+
+  # Parameter discovery
+  param_wordlist: "wordlists/parameters.txt"
+  param_methods:
+    - GET
+    - POST
+
+  # JavaScript analysis
+  js_extract_endpoints: true
+  js_extract_secrets: true
+  js_extract_domains: true
+
+# Testing Settings
+testing:
+  # SQL Injection
+  sqli:
+    enabled: true
+    techniques:
+      - error
+      - time
+      - boolean
+      - union
+    time_threshold: 5  # seconds
+    databases:
+      - mysql
+      - postgresql
+      - mssql
+      - oracle
+      - sqlite
+
+  # Cross-Site Scripting
+  xss:
+    enabled: true
+    contexts:
+      - html
+      - attribute
+      - javascript
+      - url
+    check_dom: true
+    browser_verification: false
+
+  # Server-Side Request Forgery
+  ssrf:
+    enabled: true
+    callback_server: null  # Your collaborator/interactsh server
+    test_internal_ips: true
+    test_cloud_metadata: true
+    protocols:
+      - http
+      - https
+      - file
+      - gopher
+
+  # XML External Entity
+  xxe:
+    enabled: true
+    test_oob: true
+    callback_server: null
+
+  # Server-Side Template Injection
+  ssti:
+    enabled: true
+    engines:
+      - jinja2
+      - twig
+      - freemarker
+      - velocity
+      - smarty
+      - mako
+      - erb
+
+  # Insecure Direct Object Reference
+  idor:
+    enabled: true
+    patterns:
+      - sequential  # id+1, id-1
+      - uuid        # random UUIDs
+      - encoded     # base64, etc.
+    test_cross_user: true
+
+  # JWT Testing
+  jwt:
+    enabled: true
+    tests:
+      - none_algorithm
+      - algorithm_confusion
+      - weak_secret
+      - expired_token
+      - key_injection
+    wordlist: "wordlists/jwt_secrets.txt"
+
+  # CSRF
+  csrf:
+    enabled: true
+    check_token_validation: true
+    check_origin_header: true
+    check_referer_header: true
+
+  # Race Conditions
+  race:
+    enabled: true
+    threads: 20
+    requests_per_test: 50
+
+# Exploitation Settings
+exploitation:
+  # Proof of Concept generation
+  poc:
+    generate_curl: true
+    generate_python: true
+    generate_html: false
+
+  # Screenshot capture
+  screenshots:
+    enabled: true
+    browser: "chromium"
+    timeout: 10
+
+  # Evidence collection
+  evidence:
+    save_requests: true
+    save_responses: true
+    max_response_size: 1048576  # 1MB
+
+# Reporting Settings
+reporting:
+  # Platform template
+  platform: "generic"  # hackerone, bugcrowd, generic
+
+  # Report format
+  formats:
+    - markdown
+    - json
+
+  # CVSS calculation
+  cvss:
+    version: "3.1"
+    include_in_report: true
+
+  # Deduplication
+  deduplicate: true
+  dedupe_threshold: 0.9  # Similarity threshold
+
+# Payload Configuration
+payloads:
+  # Payload directory
+  directory: "config/payloads"
+
+  # Encoding to apply
+  default_encodings:
+    - none
+    - url
+    - double_url
+    - html_entity
+
+  # Custom payload files
+  sqli_file: "sqli/payloads.txt"
+  xss_file: "xss/payloads.txt"
+  ssrf_file: "ssrf/payloads.txt"
+  xxe_file: "xxe/payloads.txt"
+  ssti_file: "ssti/payloads.txt"
+
+# Wordlists
+wordlists:
+  directory: "config/wordlists"
+  subdomains: "subdomains.txt"
+  directories: "directories.txt"
+  parameters: "parameters.txt"
+  passwords: "passwords.txt"
+
+# Notification Settings (optional)
+notifications:
+  enabled: false
+  # Slack webhook
+  slack_webhook: null
+  # Discord webhook
+  discord_webhook: null
+  # Email
+  email:
+    enabled: false
+    smtp_server: null
+    smtp_port: 587
+    username: null
+    password: null
+    recipient: null
+
+# Scope Configuration
+scope:
+  # In-scope domains (regex patterns)
+  include:
+    - ".*\\.example\\.com$"
+
+  # Out-of-scope domains
+  exclude:
+    - ".*\\.gov$"
+    - ".*\\.mil$"
+
+  # Out-of-scope paths
+  exclude_paths:
+    - "/logout"
+    - "/signout"
+    - "/admin"
+
+  # Rate limit per domain
+  per_domain_rate: 10

