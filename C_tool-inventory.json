@@ -1,0 +1,753 @@
+{
+  "metadata": {
+    "generated": "2026-02-12",
+    "platform": "Kali Linux 6.18.5+kali-amd64",
+    "shadow_version": "1.0.0",
+    "total_kali_tools": 33,
+    "total_python_modules": 28,
+    "total_conflicts": 12,
+    "total_gaps": 8
+  },
+  "kali_tools": {
+    "reconnaissance": {
+      "subdomain_enumeration": {
+        "subfinder": {
+          "path": "/home/huntersreeni/.pdtm/go/bin/subfinder",
+          "version": "2.12.0",
+          "capabilities": ["passive_subdomain_enumeration", "multi_source", "json_output", "stdin_support"],
+          "maturity": "high"
+        },
+        "amass": {
+          "path": "/usr/bin/amass",
+          "version": "5.0.1",
+          "capabilities": ["passive_enumeration", "active_enumeration", "dns_bruteforce", "graph_database", "api_integrations"],
+          "maturity": "high"
+        },
+        "theHarvester": {
+          "path": "/usr/bin/theharvester",
+          "version": "unknown",
+          "capabilities": ["email_harvesting", "subdomain_discovery", "host_discovery", "multi_source"],
+          "maturity": "high"
+        },
+        "fierce": {
+          "path": "/usr/bin/fierce",
+          "version": "unknown",
+          "capabilities": ["dns_enumeration", "zone_transfer", "subdomain_bruteforce"],
+          "maturity": "medium"
+        },
+        "dnsrecon": {
+          "path": "/usr/bin/dnsrecon",
+          "version": "unknown",
+          "capabilities": ["dns_enumeration", "zone_transfer", "srv_enumeration", "cache_snooping"],
+          "maturity": "high"
+        },
+        "dnsmap": {
+          "path": "/usr/bin/dnsmap",
+          "version": "unknown",
+          "capabilities": ["subdomain_bruteforce"],
+          "maturity": "low"
+        },
+        "dmitry": {
+          "path": "/usr/bin/dmitry",
+          "version": "unknown",
+          "capabilities": ["whois_lookup", "subdomain_enumeration", "email_gathering", "port_scanning"],
+          "maturity": "low"
+        }
+      },
+      "port_scanning": {
+        "nmap": {
+          "path": "/usr/bin/nmap",
+          "version": "7.98",
+          "capabilities": ["tcp_scan", "udp_scan", "syn_scan", "service_detection", "os_detection", "nse_scripts", "xml_output", "version_detection"],
+          "maturity": "high"
+        },
+        "naabu": {
+          "path": "/home/huntersreeni/.pdtm/go/bin/naabu",
+          "version": "unknown",
+          "capabilities": ["fast_port_scan", "syn_scan", "connect_scan", "json_output", "stdin_support"],
+          "maturity": "medium"
+        }
+      },
+      "technology_fingerprinting": {
+        "whatweb": {
+          "path": "/usr/bin/whatweb",
+          "version": "0.6.3",
+          "capabilities": ["web_technology_detection", "plugin_based", "aggression_levels", "json_output"],
+          "maturity": "high"
+        },
+        "wafw00f": {
+          "path": "/usr/bin/wafw00f",
+          "version": "unknown",
+          "capabilities": ["waf_detection", "waf_fingerprinting", "multi_waf_support"],
+          "maturity": "high"
+        }
+      },
+      "dns_enumeration": {
+        "dnsx": {
+          "path": "/home/huntersreeni/.pdtm/go/bin/dnsx",
+          "version": "unknown",
+          "capabilities": ["dns_resolution", "wildcard_filtering", "multi_record_type", "json_output"],
+          "maturity": "medium"
+        },
+        "dnsrecon": {
+          "path": "/usr/bin/dnsrecon",
+          "version": "unknown",
+          "capabilities": ["zone_transfer", "dns_cache_snooping", "srv_enumeration", "google_dorks"],
+          "maturity": "high"
+        }
+      },
+      "web_crawling": {
+        "katana": {
+          "path": "/home/huntersreeni/.pdtm/go/bin/katana",
+          "version": "unknown",
+          "capabilities": ["web_crawling", "js_rendering", "form_filling", "headless_browser", "scope_control"],
+          "maturity": "medium"
+        }
+      },
+      "ssl_analysis": {
+        "sslscan": {
+          "path": "/usr/bin/sslscan",
+          "version": "4.1",
+          "capabilities": ["ssl_cipher_enumeration", "certificate_analysis", "protocol_detection", "heartbleed_check"],
+          "maturity": "high"
+        },
+        "sslyze": {
+          "path": "/usr/bin/sslyze",
+          "version": "unknown",
+          "capabilities": ["ssl_tls_analysis", "certificate_validation", "cipher_suites", "json_output"],
+          "maturity": "high"
+        }
+      },
+      "osint": {
+        "shodan": {
+          "path": "/usr/bin/shodan",
+          "version": "unknown",
+          "capabilities": ["internet_scanning", "service_banner_search", "host_info", "vulnerability_search"],
+          "maturity": "high"
+        }
+      }
+    },
+    "discovery": {
+      "directory_bruteforce": {
+        "gobuster": {
+          "path": "/usr/bin/gobuster",
+          "version": "3.8.2",
+          "capabilities": ["directory_bruteforce", "dns_bruteforce", "vhost_bruteforce", "s3_bucket_bruteforce", "fuzzing"],
+          "maturity": "high"
+        },
+        "ffuf": {
+          "path": "/usr/bin/ffuf",
+          "version": "2.1.0",
+          "capabilities": ["directory_fuzzing", "parameter_fuzzing", "header_fuzzing", "multi_position_fuzzing", "filter_by_size_words_lines", "json_output"],
+          "maturity": "high"
+        },
+        "dirb": {
+          "path": "/usr/bin/dirb",
+          "version": "unknown",
+          "capabilities": ["directory_bruteforce", "custom_wordlists", "proxy_support"],
+          "maturity": "medium"
+        },
+        "wfuzz": {
+          "path": "/usr/bin/wfuzz",
+          "version": "3.1.0",
+          "capabilities": ["web_fuzzing", "parameter_fuzzing", "header_fuzzing", "filter_by_response", "multi_payload_positions"],
+          "maturity": "high"
+        }
+      },
+      "cms_scanning": {
+        "wpscan": {
+          "path": "/usr/bin/wpscan",
+          "version": "2.1.5",
+          "capabilities": ["wordpress_scanning", "plugin_detection", "theme_detection", "user_enumeration", "vulnerability_database"],
+          "maturity": "high"
+        },
+        "droopescan": {
+          "path": "/usr/local/bin/droopescan",
+          "version": "unknown",
+          "capabilities": ["drupal_scanning", "silverstripe_scanning", "wordpress_scanning", "joomla_scanning"],
+          "maturity": "medium"
+        }
+      },
+      "web_scanning": {
+        "nikto": {
+          "path": "/usr/bin/nikto",
+          "version": "2.5.0",
+          "capabilities": ["web_vulnerability_scanning", "server_misconfiguration", "outdated_software", "dangerous_files"],
+          "maturity": "high"
+        },
+        "nuclei": {
+          "path": "/home/huntersreeni/.pdtm/go/bin/nuclei",
+          "version": "3.7.0",
+          "capabilities": ["template_based_scanning", "cve_detection", "misconfig_detection", "technology_detection", "custom_templates", "bulk_scanning"],
+          "maturity": "high"
+        }
+      },
+      "url_discovery": {
+        "urlfinder": {
+          "path": "/home/huntersreeni/.pdtm/go/bin/urlfinder",
+          "version": "0.0.3",
+          "capabilities": ["url_extraction", "javascript_parsing", "api_endpoint_discovery"],
+          "maturity": "low"
+        }
+      },
+      "wordlist_generation": {
+        "cewl": {
+          "path": "/usr/bin/cewl",
+          "version": "unknown",
+          "capabilities": ["custom_wordlist_generation", "website_spidering", "email_extraction"],
+          "maturity": "medium"
+        }
+      }
+    },
+    "vulnerability_testing": {
+      "sql_injection": {
+        "sqlmap": {
+          "path": "/usr/bin/sqlmap",
+          "version": "1.10.2",
+          "capabilities": ["error_based_sqli", "time_based_sqli", "boolean_based_sqli", "union_based_sqli", "stacked_queries", "database_takeover", "os_shell", "file_read_write", "waf_bypass", "tamper_scripts", "multi_database_support"],
+          "maturity": "high"
+        }
+      },
+      "command_injection": {
+        "commix": {
+          "path": "/usr/bin/commix",
+          "version": "unknown",
+          "capabilities": ["os_command_injection", "result_based", "time_based", "blind_injection", "dns_exfiltration"],
+          "maturity": "high"
+        }
+      },
+      "brute_force": {
+        "hydra": {
+          "path": "/usr/bin/hydra",
+          "version": "9.6",
+          "capabilities": ["multi_protocol_bruteforce", "ssh", "ftp", "http_form", "http_basic", "smtp", "pop3", "rdp", "mysql", "postgresql"],
+          "maturity": "high"
+        },
+        "john": {
+          "path": "/usr/sbin/john",
+          "version": "1.9.0-jumbo-1",
+          "capabilities": ["password_cracking", "hash_detection", "multi_format_support", "gpu_acceleration", "rules_based_cracking"],
+          "maturity": "high"
+        },
+        "hashcat": {
+          "path": "/usr/bin/hashcat",
+          "version": "unknown",
+          "capabilities": ["gpu_password_cracking", "multi_hash_support", "rule_based_attack", "mask_attack", "combinator_attack"],
+          "maturity": "high"
+        },
+        "ncrack": {
+          "path": "/usr/bin/ncrack",
+          "version": "unknown",
+          "capabilities": ["network_auth_cracking", "ssh", "rdp", "ftp", "telnet", "http"],
+          "maturity": "medium"
+        },
+        "medusa": {
+          "path": "/usr/bin/medusa",
+          "version": "unknown",
+          "capabilities": ["parallel_login_bruteforce", "multi_protocol", "modular_design"],
+          "maturity": "medium"
+        },
+        "patator": {
+          "path": "/usr/bin/patator",
+          "version": "unknown",
+          "capabilities": ["multi_purpose_bruteforcer", "ftp", "ssh", "http", "smtp", "dns", "ldap"],
+          "maturity": "medium"
+        }
+      },
+      "exploitation_framework": {
+        "metasploit": {
+          "path": "/usr/bin/msfconsole",
+          "version": "6.4.112",
+          "capabilities": ["exploit_framework", "payload_generation", "post_exploitation", "auxiliary_modules", "meterpreter"],
+          "maturity": "high"
+        },
+        "burpsuite": {
+          "path": "/usr/bin/burpsuite",
+          "version": "2025.12.5",
+          "capabilities": ["web_proxy", "scanner", "intruder", "repeater", "sequencer", "decoder", "comparer"],
+          "maturity": "high"
+        }
+      },
+      "network_attacks": {
+        "responder": {
+          "path": "/usr/sbin/responder",
+          "version": "unknown",
+          "capabilities": ["llmnr_poisoning", "nbt_ns_poisoning", "mdns_poisoning", "credential_capture"],
+          "maturity": "high"
+        },
+        "netexec": {
+          "path": "/usr/bin/netexec",
+          "version": "unknown",
+          "capabilities": ["smb_enumeration", "credential_spraying", "command_execution", "multi_protocol"],
+          "maturity": "high"
+        },
+        "evil-winrm": {
+          "path": "/usr/bin/evil-winrm",
+          "version": "unknown",
+          "capabilities": ["winrm_shell", "file_upload_download", "powershell_execution"],
+          "maturity": "medium"
+        }
+      }
+    },
+    "go_tools_pdtm": {
+      "subfinder": "/home/huntersreeni/.pdtm/go/bin/subfinder",
+      "nuclei": "/home/huntersreeni/.pdtm/go/bin/nuclei",
+      "httpx": "/home/huntersreeni/.pdtm/go/bin/httpx",
+      "katana": "/home/huntersreeni/.pdtm/go/bin/katana",
+      "dnsx": "/home/huntersreeni/.pdtm/go/bin/dnsx",
+      "naabu": "/home/huntersreeni/.pdtm/go/bin/naabu",
+      "urlfinder": "/home/huntersreeni/.pdtm/go/bin/urlfinder",
+      "interactsh-client": "/home/huntersreeni/.pdtm/go/bin/interactsh-client",
+      "interactsh-server": "/home/huntersreeni/.pdtm/go/bin/interactsh-server",
+      "shuffledns": "/home/huntersreeni/.pdtm/go/bin/shuffledns",
+      "tlsx": "/home/huntersreeni/.pdtm/go/bin/tlsx",
+      "uncover": "/home/huntersreeni/.pdtm/go/bin/uncover",
+      "alterx": "/home/huntersreeni/.pdtm/go/bin/alterx",
+      "asnmap": "/home/huntersreeni/.pdtm/go/bin/asnmap",
+      "cdncheck": "/home/huntersreeni/.pdtm/go/bin/cdncheck",
+      "mapcidr": "/home/huntersreeni/.pdtm/go/bin/mapcidr",
+      "proxify": "/home/huntersreeni/.pdtm/go/bin/proxify",
+      "cloudlist": "/home/huntersreeni/.pdtm/go/bin/cloudlist",
+      "notify": "/home/huntersreeni/.pdtm/go/bin/notify"
+    }
+  },
+  "python_scripts": {
+    "core_infrastructure": {
+      "cli": {
+        "path": "cli.py",
+        "capabilities": ["command_line_interface", "module_routing", "pipeline_control", "auth_parameter_passing"],
+        "dependencies": ["orchestrator", "all_modules"]
+      },
+      "orchestrator": {
+        "path": "orchestrator.py",
+        "capabilities": ["pipeline_orchestration", "phase_control", "result_aggregation", "markdown_reporting", "json_reporting"],
+        "dependencies": ["core/*", "phase1_recon/*", "phase2_discovery/*", "phase3_testing/*"]
+      },
+      "http_client": {
+        "path": "core/http_client.py",
+        "capabilities": ["async_http_requests", "rate_limiting", "proxy_support", "ua_rotation", "cookie_persistence", "retry_logic", "batch_requests"],
+        "dependencies": ["aiohttp"]
+      },
+      "payload_manager": {
+        "path": "core/payload_manager.py",
+        "capabilities": ["payload_loading", "26_encoding_schemes", "payload_mutation", "template_expansion", "built_in_sqli_payloads", "built_in_xss_payloads", "built_in_ssrf_payloads", "built_in_xxe_payloads", "built_in_ssti_payloads"],
+        "dependencies": []
+      },
+      "response_analyzer": {
+        "path": "core/response_analyzer.py",
+        "capabilities": ["response_fingerprinting", "diff_detection", "anomaly_scoring", "sql_error_detection", "xss_reflection_detection", "ssti_detection", "path_traversal_detection", "cmd_injection_detection", "info_disclosure_detection", "time_based_analysis", "boolean_based_analysis"],
+        "dependencies": ["http_client"]
+      },
+      "result_manager": {
+        "path": "core/result_manager.py",
+        "capabilities": ["json_output", "markdown_output", "severity_classification", "finding_management", "result_merging", "result_filtering"],
+        "dependencies": []
+      },
+      "session_manager": {
+        "path": "core/session_manager.py",
+        "capabilities": ["multi_session_management", "cookie_persistence", "auth_handling", "csrf_extraction", "burp_import", "browser_import"],
+        "dependencies": []
+      }
+    },
+    "phase1_recon": {
+      "subdomain_enum": {
+        "path": "phase1_recon/subdomain_enum.py",
+        "capabilities": ["crtsh_query", "hackertarget_query", "threatcrowd_query", "urlscan_query", "subfinder_wrapper", "amass_wrapper", "assetfinder_wrapper", "dns_bruteforce", "subdomain_resolution", "http_probing"],
+        "dependencies": ["dnspython", "core/http_client"]
+      },
+      "subdomain_prober": {
+        "path": "phase1_recon/subdomain_prober.py",
+        "capabilities": ["common_prefix_probing", "http_probing", "ssrf_header_testing", "technology_detection", "title_extraction"],
+        "dependencies": ["core/http_client"]
+      },
+      "port_scanner": {
+        "path": "phase1_recon/port_scanner.py",
+        "capabilities": ["tcp_connect_scan", "nmap_wrapper", "banner_grabbing", "service_mapping", "top_1000_ports"],
+        "dependencies": ["nmap_optional"]
+      },
+      "tech_fingerprint": {
+        "path": "phase1_recon/tech_fingerprint.py",
+        "capabilities": ["header_analysis", "body_pattern_matching", "cookie_analysis", "meta_tag_analysis", "version_extraction", "40_tech_signatures"],
+        "dependencies": ["core/http_client"]
+      },
+      "dns_enum": {
+        "path": "phase1_recon/dns_enum.py",
+        "capabilities": ["multi_record_query", "zone_transfer", "dns_bruteforce", "spf_analysis", "dmarc_analysis", "caa_analysis", "wildcard_detection"],
+        "dependencies": ["dnspython"]
+      },
+      "cert_transparency": {
+        "path": "phase1_recon/cert_transparency.py",
+        "capabilities": ["crtsh_search", "certspotter_search", "certificate_analysis", "subdomain_extraction", "expiry_checking"],
+        "dependencies": ["core/http_client"]
+      },
+      "wayback_extractor": {
+        "path": "phase1_recon/wayback_extractor.py",
+        "capabilities": ["wayback_cdx_query", "commoncrawl_query", "parameter_extraction", "interesting_file_detection", "subdomain_discovery"],
+        "dependencies": ["core/http_client"]
+      }
+    },
+    "phase2_discovery": {
+      "directory_bruteforce": {
+        "path": "phase2_discovery/directory_bruteforce.py",
+        "capabilities": ["native_async_bruteforce", "ffuf_wrapper", "status_code_filtering", "interesting_path_detection"],
+        "dependencies": ["core/http_client", "ffuf_optional"]
+      },
+      "parameter_discovery": {
+        "path": "phase2_discovery/parameter_discovery.py",
+        "capabilities": ["parameter_fuzzing", "hidden_parameter_discovery", "response_diff_analysis"],
+        "dependencies": ["core/http_client"]
+      },
+      "js_analyzer": {
+        "path": "phase2_discovery/js_analyzer.py",
+        "capabilities": ["javascript_parsing", "endpoint_extraction", "secret_detection", "api_key_detection"],
+        "dependencies": ["core/http_client"]
+      },
+      "api_endpoint_extractor": {
+        "path": "phase2_discovery/api_endpoint_extractor.py",
+        "capabilities": ["api_endpoint_discovery", "rest_api_detection", "method_enumeration"],
+        "dependencies": ["core/http_client"]
+      },
+      "admin_panel_detector": {
+        "path": "phase2_discovery/admin_panel_detector.py",
+        "capabilities": ["admin_panel_detection", "login_page_detection", "cms_admin_detection"],
+        "dependencies": ["core/http_client"]
+      },
+      "framework_fingerprinter": {
+        "path": "phase2_discovery/framework_fingerprinter.py",
+        "capabilities": ["framework_detection", "version_detection", "technology_stack_analysis"],
+        "dependencies": ["core/http_client"]
+      },
+      "graphql_introspect": {
+        "path": "phase2_discovery/graphql_introspect.py",
+        "capabilities": ["graphql_introspection", "schema_extraction", "query_building"],
+        "dependencies": ["core/http_client"]
+      },
+      "oauth_discovery": {
+        "path": "phase2_discovery/oauth_discovery.py",
+        "capabilities": ["oauth_endpoint_discovery", "openid_connect_discovery", "misconfiguration_detection"],
+        "dependencies": ["core/http_client"]
+      },
+      "openapi_discovery": {
+        "path": "phase2_discovery/openapi_discovery.py",
+        "capabilities": ["swagger_discovery", "openapi_spec_parsing", "endpoint_extraction"],
+        "dependencies": ["core/http_client"]
+      }
+    },
+    "phase3_testing": {
+      "injection": {
+        "sqli_tester": {
+          "path": "phase3_testing/injection/sqli_tester.py",
+          "capabilities": ["error_based_sqli", "time_based_sqli", "boolean_based_sqli", "union_based_sqli", "multi_db_signatures", "encoding_support"],
+          "dependencies": ["core/http_client", "core/payload_manager", "core/response_analyzer"]
+        },
+        "xss_tester": {
+          "path": "phase3_testing/injection/xss_tester.py",
+          "capabilities": ["reflected_xss", "context_detection", "filter_bypass", "encoding_support", "dom_analysis"],
+          "dependencies": ["core/http_client", "core/payload_manager"]
+        },
+        "ssti_tester": {
+          "path": "phase3_testing/injection/ssti_tester.py",
+          "capabilities": ["template_detection", "engine_identification", "rce_verification", "multi_engine_support"],
+          "dependencies": ["core/http_client"]
+        },
+        "xxe_tester": {
+          "path": "phase3_testing/injection/xxe_tester.py",
+          "capabilities": ["file_disclosure", "ssrf_via_xxe", "blind_xxe", "oob_detection"],
+          "dependencies": ["core/http_client"]
+        },
+        "command_injection": {
+          "path": "phase3_testing/injection/command_injection.py",
+          "capabilities": ["result_based_cmdi", "time_based_cmdi", "blind_cmdi", "os_detection"],
+          "dependencies": ["core/http_client"]
+        }
+      },
+      "auth": {
+        "jwt_tester": {
+          "path": "phase3_testing/auth/jwt_tester.py",
+          "capabilities": ["algorithm_confusion", "none_algorithm", "weak_secret", "claim_manipulation", "expiry_analysis"],
+          "dependencies": ["pyjwt", "cryptography"]
+        },
+        "login_bypass": {
+          "path": "phase3_testing/auth/login_bypass.py",
+          "capabilities": ["default_credentials", "sqli_bypass", "auth_bypass_techniques"],
+          "dependencies": ["core/http_client"]
+        },
+        "password_reset": {
+          "path": "phase3_testing/auth/password_reset.py",
+          "capabilities": ["token_analysis", "host_header_injection", "rate_limiting_check"],
+          "dependencies": ["core/http_client"]
+        },
+        "session_tester": {
+          "path": "phase3_testing/auth/session_tester.py",
+          "capabilities": ["session_fixation", "session_hijacking", "cookie_analysis", "entropy_analysis"],
+          "dependencies": ["core/http_client"]
+        }
+      },
+      "access": {
+        "idor_tester": {
+          "path": "phase3_testing/access/idor_tester.py",
+          "capabilities": ["id_enumeration", "horizontal_privilege_test", "parameter_manipulation"],
+          "dependencies": ["core/http_client"]
+        },
+        "privilege_escalation": {
+          "path": "phase3_testing/access/privilege_escalation.py",
+          "capabilities": ["vertical_privesc", "role_manipulation", "admin_endpoint_access"],
+          "dependencies": ["core/http_client"]
+        },
+        "access_control": {
+          "path": "phase3_testing/access/access_control.py",
+          "capabilities": ["method_override", "path_traversal", "forced_browsing", "http_verb_tampering"],
+          "dependencies": ["core/http_client"]
+        }
+      },
+      "other": {
+        "ssrf_tester": {
+          "path": "phase3_testing/ssrf_tester.py",
+          "capabilities": ["internal_network_access", "cloud_metadata_access", "protocol_smuggling", "bypass_techniques"],
+          "dependencies": ["core/http_client"]
+        },
+        "csrf_tester": {
+          "path": "phase3_testing/csrf_tester.py",
+          "capabilities": ["csrf_token_analysis", "samesite_analysis", "referer_check", "poc_generation"],
+          "dependencies": ["core/http_client"]
+        },
+        "file_upload": {
+          "path": "phase3_testing/file_upload.py",
+          "capabilities": ["extension_bypass", "mime_type_bypass", "content_type_bypass", "shell_upload"],
+          "dependencies": ["core/http_client"]
+        },
+        "business_logic": {
+          "path": "phase3_testing/business_logic.py",
+          "capabilities": ["price_manipulation", "workflow_bypass", "rate_limiting_test"],
+          "dependencies": ["core/http_client"]
+        },
+        "race_condition": {
+          "path": "phase3_testing/race_condition.py",
+          "capabilities": ["toctou_testing", "concurrent_request_testing", "parallel_execution"],
+          "dependencies": ["core/http_client"]
+        }
+      }
+    }
+  },
+  "conflicts": [
+    {
+      "id": "C001",
+      "category": "subdomain_enumeration",
+      "kali_tool": "subfinder + amass",
+      "python_script": "subdomain_enum.py",
+      "type": "COMPLEMENTARY",
+      "resolution": "Python wraps subfinder/amass when available; adds API-based sources (crt.sh, HackerTarget, ThreatCrowd, urlscan). Use BOTH. Python script as orchestrator, Kali tools as backends.",
+      "primary": "python_script",
+      "fallback": "kali_tools_standalone"
+    },
+    {
+      "id": "C002",
+      "category": "port_scanning",
+      "kali_tool": "nmap + naabu",
+      "python_script": "port_scanner.py",
+      "type": "CONFLICT",
+      "resolution": "nmap is vastly superior (SYN scan, OS detection, NSE scripts, service version detection). Python script provides basic TCP connect scan and nmap wrapper. Use nmap as PRIMARY; Python script only for quick/light scans or when wrapping nmap into the pipeline.",
+      "primary": "nmap",
+      "fallback": "python_script"
+    },
+    {
+      "id": "C003",
+      "category": "technology_fingerprinting",
+      "kali_tool": "whatweb + wafw00f",
+      "python_script": "tech_fingerprint.py",
+      "type": "COMPLEMENTARY",
+      "resolution": "whatweb has 1800+ plugins vs Python's 40 signatures. wafw00f specialized in WAF detection. Python script integrates into pipeline with unified output. Use whatweb/wafw00f as PRIMARY for deep fingerprinting; Python for pipeline integration.",
+      "primary": "whatweb",
+      "fallback": "python_script"
+    },
+    {
+      "id": "C004",
+      "category": "dns_enumeration",
+      "kali_tool": "dnsrecon + dnsx + fierce",
+      "python_script": "dns_enum.py",
+      "type": "COMPLEMENTARY",
+      "resolution": "dnsrecon has more enumeration techniques (cache snooping, SRV enum). Python adds security record analysis (SPF/DMARC/CAA), wildcard detection, and pipeline integration. Use dnsrecon for deep DNS enum; Python for security-focused analysis.",
+      "primary": "dnsrecon",
+      "fallback": "python_script"
+    },
+    {
+      "id": "C005",
+      "category": "directory_bruteforce",
+      "kali_tool": "ffuf + gobuster + dirb + wfuzz",
+      "python_script": "directory_bruteforce.py",
+      "type": "CONFLICT",
+      "resolution": "ffuf and gobuster are significantly faster (Go-based), support more advanced filtering, and are battle-tested. Python script provides ffuf wrapper and native fallback. Use ffuf/gobuster as PRIMARY; Python only for pipeline orchestration.",
+      "primary": "ffuf",
+      "fallback": "python_script"
+    },
+    {
+      "id": "C006",
+      "category": "sql_injection",
+      "kali_tool": "sqlmap",
+      "python_script": "sqli_tester.py",
+      "type": "CONFLICT",
+      "resolution": "sqlmap is the gold standard: tamper scripts, WAF bypass, database takeover, OS shell, file read/write. Python script provides lightweight detection for pipeline screening. Use sqlmap as PRIMARY for confirmed SQLi; Python for initial detection/triage.",
+      "primary": "sqlmap",
+      "fallback": "python_script"
+    },
+    {
+      "id": "C007",
+      "category": "command_injection",
+      "kali_tool": "commix",
+      "python_script": "command_injection.py",
+      "type": "CONFLICT",
+      "resolution": "commix is purpose-built for command injection with more bypass techniques and exploitation capabilities. Python provides lightweight detection. Use commix as PRIMARY; Python for initial screening.",
+      "primary": "commix",
+      "fallback": "python_script"
+    },
+    {
+      "id": "C008",
+      "category": "web_vulnerability_scanning",
+      "kali_tool": "nuclei + nikto",
+      "python_script": "multiple phase3 scripts",
+      "type": "COMPLEMENTARY",
+      "resolution": "nuclei has thousands of community templates covering CVEs, misconfigs, and exposures. nikto covers server misconfigurations. Python scripts provide specialized deep-dive testing per vulnerability class. Use nuclei/nikto for broad scanning; Python for targeted deep testing.",
+      "primary": "nuclei",
+      "fallback": "python_scripts"
+    },
+    {
+      "id": "C009",
+      "category": "wayback_url_extraction",
+      "kali_tool": "katana + urlfinder",
+      "python_script": "wayback_extractor.py",
+      "type": "COMPLEMENTARY",
+      "resolution": "katana provides live web crawling with JS rendering. Python script queries Wayback/CommonCrawl for historical URLs. Different data sources. Use BOTH: Python for historical data, katana for live crawling.",
+      "primary": "both",
+      "fallback": "none"
+    },
+    {
+      "id": "C010",
+      "category": "subdomain_probing",
+      "kali_tool": "httpx",
+      "python_script": "subdomain_prober.py",
+      "type": "CONFLICT",
+      "resolution": "httpx is faster (Go-based), supports more probe types, and has better output formatting. Python script adds SSRF header testing and prefix-based discovery. Use httpx as PRIMARY for probing; Python for SSRF-focused subdomain analysis.",
+      "primary": "httpx",
+      "fallback": "python_script"
+    },
+    {
+      "id": "C011",
+      "category": "parameter_discovery",
+      "kali_tool": "ffuf + wfuzz (parameter mode)",
+      "python_script": "parameter_discovery.py",
+      "type": "COMPLEMENTARY",
+      "resolution": "ffuf/wfuzz are faster for raw parameter fuzzing. Python adds intelligent response diff analysis. Use ffuf for speed; Python for analysis quality.",
+      "primary": "ffuf",
+      "fallback": "python_script"
+    },
+    {
+      "id": "C012",
+      "category": "cms_scanning",
+      "kali_tool": "wpscan + droopescan",
+      "python_script": "framework_fingerprinter.py + admin_panel_detector.py",
+      "type": "COMPLEMENTARY",
+      "resolution": "wpscan and droopescan are CMS-specific with vulnerability databases. Python provides general framework detection. Use wpscan/droopescan for CMS-specific scanning; Python for general detection.",
+      "primary": "wpscan",
+      "fallback": "python_script"
+    }
+  ],
+  "gaps": [
+    {
+      "id": "G001",
+      "category": "KALI_ONLY",
+      "capability": "Password cracking and brute force",
+      "tools": ["hydra", "john", "hashcat", "ncrack", "medusa", "patator"],
+      "description": "No Python scripts for credential bruteforcing or hash cracking. These are appropriately Kali-only tools."
+    },
+    {
+      "id": "G002",
+      "category": "KALI_ONLY",
+      "capability": "Exploitation framework",
+      "tools": ["metasploit", "burpsuite"],
+      "description": "No Python equivalent for full exploitation frameworks. These are correctly Kali-only."
+    },
+    {
+      "id": "G003",
+      "category": "KALI_ONLY",
+      "capability": "SSL/TLS analysis",
+      "tools": ["sslscan", "sslyze", "tlsx"],
+      "description": "No Python script for SSL/TLS vulnerability testing. Could benefit from pipeline integration."
+    },
+    {
+      "id": "G004",
+      "category": "KALI_ONLY",
+      "capability": "Network attacks (AD/internal)",
+      "tools": ["responder", "netexec", "evil-winrm"],
+      "description": "No Python scripts for internal network attacks. These are appropriately Kali-only for internal pentesting."
+    },
+    {
+      "id": "G005",
+      "category": "KALI_ONLY",
+      "capability": "OSINT / Shodan integration",
+      "tools": ["shodan", "theHarvester"],
+      "description": "No Python script integrates Shodan or email harvesting. Could add OSINT module."
+    },
+    {
+      "id": "G006",
+      "category": "PYTHON_ONLY",
+      "capability": "JWT vulnerability testing",
+      "tools": [],
+      "python_script": "phase3_testing/auth/jwt_tester.py",
+      "description": "No Kali tool specifically for JWT testing. Python script fills this gap well."
+    },
+    {
+      "id": "G007",
+      "category": "PYTHON_ONLY",
+      "capability": "Business logic / Race condition testing",
+      "tools": [],
+      "python_scripts": ["business_logic.py", "race_condition.py"],
+      "description": "No Kali tools for automated business logic or race condition testing. Python scripts are unique value."
+    },
+    {
+      "id": "G008",
+      "category": "PYTHON_ONLY",
+      "capability": "GraphQL introspection / OAuth discovery / OpenAPI parsing",
+      "tools": [],
+      "python_scripts": ["graphql_introspect.py", "oauth_discovery.py", "openapi_discovery.py"],
+      "description": "No Kali tools for GraphQL/OAuth/OpenAPI-specific discovery. Python scripts provide unique API security capabilities."
+    }
+  ],
+  "wordlists": {
+    "kali": {
+      "path": "/usr/share/wordlists/",
+      "available": [
+        "rockyou.txt",
+        "rockyou.txt.gz",
+        "dirb/",
+        "dirbuster/",
+        "wfuzz/",
+        "metasploit/",
+        "fasttrack.txt",
+        "nmap.lst",
+        "john.lst",
+        "sqlmap.txt",
+        "dnsmap.txt",
+        "fern-wifi/",
+        "legion/",
+        "wifite.txt"
+      ],
+      "seclists_installed": false
+    },
+    "custom": {
+      "path": "config/",
+      "payloads": {
+        "sqli": {"file": "config/payloads/sqli/payloads.txt", "count": 94},
+        "ssrf": {"file": "config/payloads/ssrf/payloads.txt", "count": 105},
+        "ssti": {"file": "config/payloads/ssti/payloads.txt", "count": 104},
+        "xss": {"file": "config/payloads/xss/payloads.txt", "count": 87},
+        "xxe": {"file": "config/payloads/xxe/payloads.txt", "count": 42}
+      },
+      "wordlists": {
+        "directories": {"file": "config/wordlists/directories.txt", "count": 176},
+        "parameters": {"file": "config/wordlists/parameters.txt", "count": 207},
+        "subdomains": {"file": "config/wordlists/subdomains.txt", "count": 209}
+      },
+      "note": "Custom wordlists are small. For production use, supplement with Kali wordlists (/usr/share/wordlists/) or install SecLists."
+    }
+  }
+}
