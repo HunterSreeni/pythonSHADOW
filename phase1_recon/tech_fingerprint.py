@@ -19,7 +19,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from core.http_client import AsyncHTTPClient, HTTPResponse
 from core.result_manager import ResultManager, ScanResult, Finding, Severity
-from core.utils import setup_logging, load_config, timestamp_now, ensure_dir, normalize_url
+from core.utils import setup_logging, load_config, timestamp_now, ensure_dir, normalize_url, parse_cookies
 
 logger = setup_logging("tech_fingerprint")
 
@@ -264,6 +264,7 @@ class TechFingerprinter:
         timeout: int = 30,
         threads: int = 20,
         verbose: bool = False,
+        auth_cookie: Optional[str] = None,
     ):
         self.targets = [normalize_url(t) for t in targets]
         self.output_dir = Path(output_dir)
@@ -271,6 +272,7 @@ class TechFingerprinter:
         self.timeout = timeout
         self.threads = threads
         self.verbose = verbose
+        self.auth_cookie = auth_cookie
 
         self.results: Dict[str, FingerprintResult] = {}
         self.result_manager = ResultManager(output_dir)
@@ -290,10 +292,13 @@ class TechFingerprinter:
 
         logger.info(f"Fingerprinting {len(self.targets)} targets...")
 
+        cookies = parse_cookies(self.auth_cookie) if self.auth_cookie else None
+
         async with AsyncHTTPClient(
             timeout=self.timeout,
             proxy=self.proxy,
             follow_redirects=True,
+            cookies=cookies,
         ) as client:
             semaphore = asyncio.Semaphore(self.threads)
 
@@ -301,7 +306,7 @@ class TechFingerprinter:
                 async with semaphore:
                     try:
                         response = await client.get(url)
-                        if response.ok:
+                        if response.status > 0:
                             return self._analyze_response(url, response)
                     except Exception as e:
                         logger.error(f"Error fingerprinting {url}: {e}")

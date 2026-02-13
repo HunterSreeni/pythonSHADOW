@@ -21,7 +21,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from core.http_client import AsyncHTTPClient
 from core.result_manager import ResultManager, ScanResult, Finding, Severity
-from core.utils import setup_logging, load_config, normalize_url, extract_domain, timestamp_now, ensure_dir, calculate_entropy
+from core.utils import setup_logging, load_config, normalize_url, extract_domain, timestamp_now, ensure_dir, calculate_entropy, parse_cookies
 
 logger = setup_logging("js_analyzer")
 
@@ -230,6 +230,8 @@ class JSAnalyzer:
         threads: int = 20,
         depth: int = 2,
         verbose: bool = False,
+        auth_cookie: Optional[str] = None,
+        auth_header: Optional[str] = None,
     ):
         self.target = normalize_url(target)
         self.target_domain = extract_domain(target)
@@ -240,6 +242,8 @@ class JSAnalyzer:
         self.threads = threads
         self.depth = depth
         self.verbose = verbose
+        self.auth_cookie = auth_cookie
+        self.auth_header = auth_header
 
         self.js_files: Dict[str, JSFile] = {}
         self.all_endpoints: Set[str] = set()
@@ -372,10 +376,15 @@ class JSAnalyzer:
         """Discover JavaScript files from the target."""
         logger.info("Discovering JavaScript files...")
 
+        cookies = parse_cookies(self.auth_cookie) if self.auth_cookie else None
+        headers = {"Authorization": self.auth_header} if self.auth_header else {}
+
         async with AsyncHTTPClient(
             timeout=self.timeout,
             proxy=self.proxy,
             max_retries=2,
+            cookies=cookies,
+            headers=headers,
         ) as client:
             # Fetch main page
             response = await client.get(self.target)
@@ -846,6 +855,8 @@ async def main():
     parser.add_argument("--timeout", type=int, default=30, help="Request timeout")
     parser.add_argument("--depth", type=int, default=2, help="Crawl depth for JS discovery")
     parser.add_argument("--deep-extract", action="store_true", help="Enable deep extraction (admin routes, auth patterns)")
+    parser.add_argument("--auth-cookie", help="Authentication cookie string")
+    parser.add_argument("--auth-header", help="Authorization header value")
     parser.add_argument("-v", "--verbose", action="store_true", help="Verbose output")
 
     args = parser.parse_args()
@@ -863,6 +874,8 @@ async def main():
         threads=args.threads,
         depth=args.depth,
         verbose=args.verbose,
+        auth_cookie=args.auth_cookie,
+        auth_header=args.auth_header,
     )
 
     result = await analyzer.analyze()

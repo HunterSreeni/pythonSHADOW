@@ -21,7 +21,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from core.http_client import AsyncHTTPClient
 from core.result_manager import ResultManager, ScanResult, Finding, Severity
-from core.utils import setup_logging, load_config, normalize_url, extract_domain, timestamp_now, ensure_dir, read_lines
+from core.utils import setup_logging, load_config, normalize_url, extract_domain, timestamp_now, ensure_dir, read_lines, parse_cookies
 
 logger = setup_logging("directory_bruteforce")
 
@@ -101,6 +101,7 @@ class DirectoryBruteforcer:
         filter_size: Optional[List[int]] = None,
         use_ffuf: bool = True,
         verbose: bool = False,
+        auth_cookie: Optional[str] = None,
     ):
         self.target = normalize_url(target).rstrip('/')
         self.target_domain = extract_domain(target)
@@ -117,6 +118,7 @@ class DirectoryBruteforcer:
         self.filter_size = filter_size or []
         self.use_ffuf = use_ffuf and self._tool_exists("ffuf")
         self.verbose = verbose
+        self.auth_cookie = auth_cookie
 
         self.discovered: Dict[str, DiscoveredPath] = {}
         self.dirs_to_scan: List[str] = ["/"]
@@ -216,6 +218,7 @@ class DirectoryBruteforcer:
             timeout=self.timeout,
             proxy=self.proxy,
             max_retries=1,
+            cookies=parse_cookies(self.auth_cookie) if self.auth_cookie else None,
         ) as client:
             # Test random non-existent paths
             test_paths = [
@@ -253,6 +256,9 @@ class DirectoryBruteforcer:
 
         if self.proxy:
             cmd.extend(["-x", self.proxy])
+
+        if self.auth_cookie:
+            cmd.extend(["-b", self.auth_cookie])
 
         if self.extensions:
             ext_list = ",".join(e.lstrip('.') for e in self.extensions if e)
@@ -322,6 +328,7 @@ class DirectoryBruteforcer:
             proxy=self.proxy,
             max_retries=1,
             rate_limit=self.threads,
+            cookies=parse_cookies(self.auth_cookie) if self.auth_cookie else None,
         ) as client:
             semaphore = asyncio.Semaphore(self.threads)
             progress = {"count": 0, "total": len(words) * len(self.extensions)}
@@ -421,6 +428,7 @@ class DirectoryBruteforcer:
                 timeout=self.timeout,
                 proxy=self.proxy,
                 max_retries=1,
+                cookies=parse_cookies(self.auth_cookie) if self.auth_cookie else None,
             ) as client:
                 semaphore = asyncio.Semaphore(self.threads)
 

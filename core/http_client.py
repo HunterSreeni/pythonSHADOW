@@ -6,6 +6,8 @@ import asyncio
 import random
 import ssl
 import time
+import logging # Added for verbose logging
+
 from dataclasses import dataclass, field
 from typing import Any, Callable, Dict, List, Optional, Tuple, Union
 
@@ -222,6 +224,18 @@ class AsyncHTTPClient:
                 await self.rate_limiter.acquire()
 
                 start_time = time.monotonic()
+
+                # Log request details for debugging
+                if logger.isEnabledFor(logging.DEBUG): # Use DEBUG level for verbose logging
+                    log_message = f"Sending request: {method.upper()} {url}\n"
+                    log_message += "Headers:\n"
+                    for k, v in request_headers.items():
+                        log_message += f"  {k}: {v}\n"
+                    if data:
+                        log_message += f"Body: {data}\n"
+                    elif json:
+                        log_message += f"JSON Body: {json}\n"
+                    logger.debug(log_message)
 
                 # Create session if needed
                 if not self._session:

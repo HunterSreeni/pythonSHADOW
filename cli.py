@@ -183,6 +183,7 @@ async def cmd_module(args):
         # Build kwargs based on module requirements
         kwargs = {
             "target": args.target,
+            "targets": [args.target] if args.target else [],
             "output_dir": args.output,
             "proxy": args.proxy,
             "timeout": args.timeout,
@@ -196,6 +197,8 @@ async def cmd_module(args):
             kwargs["auth_header"] = args.auth_header
         if hasattr(args, "auth_token") and args.auth_token:
             kwargs["token"] = args.auth_token
+        if hasattr(args, "deep_extract") and args.deep_extract:
+            kwargs["deep_extract"] = args.deep_extract
 
         # Filter kwargs
         import inspect
@@ -214,6 +217,22 @@ async def cmd_module(args):
             result = await tester.enumerate()
         elif hasattr(tester, "run"):
             result = await tester.run()
+        elif hasattr(tester, "fingerprint"):
+            result = await tester.fingerprint()
+        elif hasattr(tester, "analyze"):
+            result = await tester.analyze()
+        elif hasattr(tester, "bruteforce"):
+            result = await tester.bruteforce()
+        elif hasattr(tester, "extract"):
+            result = await tester.extract()
+        elif hasattr(tester, "discover"):
+            result = await tester.discover()
+        elif hasattr(tester, "detect"):
+            result = await tester.detect()
+        elif hasattr(tester, "introspect"):
+            result = await tester.introspect()
+        elif hasattr(tester, "search"):
+            result = await tester.search()
         else:
             print(f"Module {args.module} has no standard entry point")
             return None
@@ -345,6 +364,7 @@ def main():
     module_parser.add_argument("--auth-cookie", help="Authentication cookie")
     module_parser.add_argument("--auth-header", help="Authorization header")
     module_parser.add_argument("--auth-token", help="JWT/API token")
+    module_parser.add_argument("--deep-extract", action="store_true", help="Enable deep extraction (e.g., for JS analysis)")
 
     # List command
     list_parser = subparsers.add_parser("list", help="List available modules")

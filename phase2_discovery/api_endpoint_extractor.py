@@ -21,7 +21,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from core.http_client import AsyncHTTPClient
 from core.result_manager import ResultManager, ScanResult, Finding, Severity
-from core.utils import setup_logging, load_config, normalize_url, extract_domain, timestamp_now, ensure_dir
+from core.utils import setup_logging, load_config, normalize_url, extract_domain, timestamp_now, ensure_dir, parse_cookies
 
 logger = setup_logging("api_endpoint_extractor")
 
@@ -149,6 +149,8 @@ class APIEndpointExtractor:
         threads: int = 30,
         probe_methods: bool = True,
         verbose: bool = False,
+        auth_cookie: Optional[str] = None,
+        auth_header: Optional[str] = None,
     ):
         self.target = normalize_url(target).rstrip('/')
         self.target_domain = extract_domain(target)
@@ -159,6 +161,8 @@ class APIEndpointExtractor:
         self.threads = threads
         self.probe_methods = probe_methods
         self.verbose = verbose
+        self.auth_cookie = auth_cookie
+        self.auth_header = auth_header
 
         self.endpoints: Dict[str, APIEndpoint] = {}
         self.visited_urls: Set[str] = set()
@@ -240,9 +244,14 @@ class APIEndpointExtractor:
         """Extract API endpoints from main page HTML."""
         logger.info("Extracting from main page...")
 
+        cookies = parse_cookies(self.auth_cookie) if self.auth_cookie else None
+        headers = {"Authorization": self.auth_header} if self.auth_header else {}
+
         async with AsyncHTTPClient(
             timeout=self.timeout,
             proxy=self.proxy,
+            cookies=cookies,
+            headers=headers,
         ) as client:
             response = await client.get(self.target)
             if response.ok:
@@ -252,9 +261,14 @@ class APIEndpointExtractor:
         """Extract paths from robots.txt."""
         logger.info("Checking robots.txt...")
 
+        cookies = parse_cookies(self.auth_cookie) if self.auth_cookie else None
+        headers = {"Authorization": self.auth_header} if self.auth_header else {}
+
         async with AsyncHTTPClient(
             timeout=self.timeout,
             proxy=self.proxy,
+            cookies=cookies,
+            headers=headers,
         ) as client:
             url = f"{self.target}/robots.txt"
             response = await client.get(url)
@@ -272,9 +286,14 @@ class APIEndpointExtractor:
         """Extract paths from sitemap.xml."""
         logger.info("Checking sitemap.xml...")
 
+        cookies = parse_cookies(self.auth_cookie) if self.auth_cookie else None
+        headers = {"Authorization": self.auth_header} if self.auth_header else {}
+
         async with AsyncHTTPClient(
             timeout=self.timeout,
             proxy=self.proxy,
+            cookies=cookies,
+            headers=headers,
         ) as client:
             sitemap_urls = [
                 f"{self.target}/sitemap.xml",
@@ -297,10 +316,15 @@ class APIEndpointExtractor:
         """Probe common API paths."""
         logger.info("Probing common API paths...")
 
+        cookies = parse_cookies(self.auth_cookie) if self.auth_cookie else None
+        headers = {"Authorization": self.auth_header} if self.auth_header else {}
+
         async with AsyncHTTPClient(
             timeout=self.timeout,
             proxy=self.proxy,
             max_retries=1,
+            cookies=cookies,
+            headers=headers,
         ) as client:
             semaphore = asyncio.Semaphore(self.threads)
 
@@ -352,9 +376,14 @@ class APIEndpointExtractor:
         """Extract API endpoints from JavaScript files."""
         logger.info("Extracting from JavaScript files...")
 
+        cookies = parse_cookies(self.auth_cookie) if self.auth_cookie else None
+        headers = {"Authorization": self.auth_header} if self.auth_header else {}
+
         async with AsyncHTTPClient(
             timeout=self.timeout,
             proxy=self.proxy,
+            cookies=cookies,
+            headers=headers,
         ) as client:
             # First get the main page to find JS files
             response = await client.get(self.target)
@@ -440,10 +469,15 @@ class APIEndpointExtractor:
         """Probe discovered endpoints for additional information."""
         logger.info("Probing endpoints for method support...")
 
+        cookies = parse_cookies(self.auth_cookie) if self.auth_cookie else None
+        headers = {"Authorization": self.auth_header} if self.auth_header else {}
+
         async with AsyncHTTPClient(
             timeout=self.timeout,
             proxy=self.proxy,
             max_retries=1,
+            cookies=cookies,
+            headers=headers,
         ) as client:
             semaphore = asyncio.Semaphore(self.threads)
 
