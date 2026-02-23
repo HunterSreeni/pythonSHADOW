@@ -1,0 +1,72 @@
+## Summary
+
+{{ title }}
+
+## Severity
+
+**{{ severity }}** (CVSS {{ cvss_score }})
+
+**Exploitation Level:** {{ exploitation_level }} — {{ exploitation_label }}
+
+{% if cwe_id %}**CWE:** {{ cwe_id }}{% endif %}
+
+## Asset
+
+{{ asset }}
+
+## Description
+
+{{ description }}
+
+## Steps to Reproduce
+
+{% for step in steps %}
+{{ loop.index }}. {{ step }}
+{% endfor %}
+
+## Supporting Material / References
+
+{% if request %}
+**HTTP Request:**
+```http
+{{ request }}
+```
+{% endif %}
+
+{% if response %}
+**HTTP Response (excerpt):**
+```http
+{{ response }}
+```
+{% endif %}
+
+{% if payload %}
+**Payload Used:**
+```
+{{ payload }}
+```
+{% endif %}
+
+## Impact
+
+{{ impact }}
+
+{% if evidence %}
+## Proof of Concept
+
+```
+{{ evidence }}
+```
+{% endif %}
+
+{% if references %}
+## References
+
+{% for ref in references %}
+- {{ ref }}
+{% endfor %}
+{% endif %}
+
+## Remediation
+
+{{ remediation }}
